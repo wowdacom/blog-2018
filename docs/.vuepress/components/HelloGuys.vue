@@ -2,7 +2,7 @@
   <div>
     <h1>Principle 1: Easing</h1>
     <div class="container">
-      <div class="square"></div>
+      <div class="easing square"></div>
       <div class="theme-title">
         <h3>UX IN MOTION PRINCIPLE</h3>
         <h1>{{ ease.title }}</h1>
@@ -39,6 +39,37 @@
         <h3>UXINMOTION.NET</h3>
       </div>
     </div>
+    <h1>Principle 5: Value change</h1>
+    <div class="container">
+      <div class="value-change"></div>
+      <div class="theme-title">
+        <h3>UX IN MOTION PRINCIPLE</h3>
+        <h1>{{ valueChange.title }}</h1>
+        <h3>UXINMOTION.NET</h3>
+      </div>
+    </div>
+    <h1>Principle 6: Masking</h1>
+    <div class="container">    
+      <div class="face">
+        <div class="mask"></div>
+      </div>
+      <div class="theme-title">
+        <h3>UX IN MOTION PRINCIPLE</h3>
+        <h1>{{ masking.title }}</h1>
+        <h3>UXINMOTION.NET</h3>
+      </div>
+    </div>
+    <h1>Principle 7: Overlay</h1>
+    <div class="container">    
+      <div class="square">
+        <div class="square overlay"></div>
+      </div>
+      <div class="theme-title">
+        <h3>UX IN MOTION PRINCIPLE</h3>
+        <h1>{{ overlay.title }}</h1>
+        <h3>UXINMOTION.NET</h3>
+      </div>
+    </div>
     <button @click="count.like++">{{'like: ' + count.like }}</button>
     <button @click="count.hate++">{{'hate: ' + count.hate }}</button>
   </div>
@@ -64,6 +95,15 @@ export default {
       },
       transformation: {
         title: "Transformation"
+      },
+      valueChange: {
+        title: "Value change"
+      },
+      masking: {
+        title: "Masking"
+      },
+      overlay: {
+        title: "Overlay"
       }
     }
   },
@@ -103,8 +143,9 @@ export default {
       height 200px
       background #dcdcdc
       margin 0 auto
-      animation easing 1.5s infinite
-      transition-timing-function cubic-bezier(0.64, 0.57, 0.67, 1.53)
+      &.easing
+        animation easing 1.5s infinite
+        transition-timing-function cubic-bezier(0.64, 0.57, 0.67, 1.53)
 
     .stripes
       position relative
@@ -143,6 +184,29 @@ export default {
       background #dcdcdc
       animation trans-cirtangle 2s infinite
       transform-origin: bottom
+
+    .face
+      position relative
+      top 20%
+      width 400px
+      height 200px
+      margin 0 auto
+      margin-top 20px
+      background #aaaaaa
+      .mask
+        position absolute
+        top 0
+        width 100%
+        height 100%
+        background #dcdcdc
+        animation trans-cirtangle 2s infinite
+
+    .overlay
+      position absolute
+      top 0
+      left 0
+      background #aaaaaa
+      animation overlay-off 2s infinite
 
   @keyframes easing {
     0% {
@@ -212,6 +276,15 @@ export default {
     55% {
       transform scale(0.25, 0.5)
       border-radius 50%
+    }
+  }
+
+  @keyframes overlay-off {
+    45% {
+      transform translateX(70%)
+    }
+    55% {
+      transform translateX(70%)
     }
   }
 
