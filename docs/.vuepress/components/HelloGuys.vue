@@ -41,7 +41,9 @@
     </div>
     <h1>Principle 5: Value change</h1>
     <div class="container">
-      <div class="value-change"></div>
+      <div class="value-change">
+        {{ animatedNumber }}
+      </div>
       <div class="theme-title">
         <h3>UX IN MOTION PRINCIPLE</h3>
         <h1>{{ valueChange.title }}</h1>
@@ -70,12 +72,46 @@
         <h3>UXINMOTION.NET</h3>
       </div>
     </div>
+    <h1>Principle 8: Cloning</h1>
+    <div class="container">
+      <div class="circle-wrapper">
+        <div class="circle circle-left">
+        </div>
+        <div class="circle circle-right">
+        </div>
+      </div>       
+      <div class="theme-title">
+        <h3>UX IN MOTION PRINCIPLE</h3>
+        <h1>{{ cloning.title }}</h1>
+        <h3>UXINMOTION.NET</h3>
+      </div>
+    </div>
+    <div>
+      因為使用模糊加銳化效果，有顏色看起來會比較小顆，因為由外往內模糊的關係，
+      另外模糊的部分也可能因為糊化又銳化後變色
+    </div>
+    <h1>Principle 8: Cloning</h1>
+    <div class="container">
+      <div class="circle-wrapper">
+        <div class="circle circle-left">
+        </div>
+        <div class="circle circle-right">
+        </div>
+      </div>       
+      <div class="theme-title">
+        <h3>UX IN MOTION PRINCIPLE</h3>
+        <h1>{{ cloning.title }}</h1>
+        <h3>UXINMOTION.NET</h3>
+      </div>
+    </div>
     <button @click="count.like++">{{'like: ' + count.like }}</button>
     <button @click="count.hate++">{{'hate: ' + count.hate }}</button>
   </div>
 </template>
 
 <script>
+import { TweenLite } from "gsap";
+
 export default {
   name: 'enter',
   data: function () {
@@ -97,18 +133,45 @@ export default {
         title: "Transformation"
       },
       valueChange: {
-        title: "Value change"
+        title: "Value change",
+        number: 0,
+        tweenedNumber: 0
       },
       masking: {
         title: "Masking"
       },
       overlay: {
         title: "Overlay"
+      },
+      cloning: {
+        title: "Cloning"
       }
     }
   },
-  computed: {},
-  methods: {},
+  mounted: function () {
+    setInterval(()=>{
+      this.switchValue()
+    }, 1500)
+  },
+  computed: {
+    animatedNumber: function () {
+      return this.valueChange.tweenedNumber.toFixed(0)
+    }
+  },
+  watch: {
+    'valueChange.number': function(newValue) {
+      TweenLite.to(this.$data.valueChange, 0.5, { tweenedNumber: newValue });
+    }
+  },
+  methods: {
+    switchValue() {
+      if(this.valueChange.number === 0) {
+        this.valueChange.number = 10
+      } else {
+        this.valueChange.number = 0
+      }
+    }
+  },
   components: {}
 }
 </script>
@@ -185,6 +248,16 @@ export default {
       animation trans-cirtangle 2s infinite
       transform-origin: bottom
 
+    .value-change
+      position relative
+      top 10%
+      width 400px
+      height 200px
+      margin 0 auto
+      font-size 250px
+      text-align center
+      color white
+
     .face
       position relative
       top 20%
@@ -208,6 +281,32 @@ export default {
       background #aaaaaa
       animation overlay-off 2s infinite
 
+    .circle-wrapper
+      width 80%
+      height 200px
+      background black
+      position absolute
+      top 20%
+      left 50%
+      transform translateX(-50%)
+      filter contrast(20)
+      .circle
+        width 100px
+        height 100px
+        border-radius 51%
+        background #dcdcdc
+        position absolute
+        top 50%
+        left 50%
+        transform translate(-50%, -50%)
+        
+        &.circle-left     
+          animation cloning-left 2.5s ease-in infinite
+          filter blur(10px)        
+        &.circle-right
+          animation cloning-right 2.5s ease-in infinite
+          filter blur(10px)
+        
   @keyframes easing {
     0% {
       transform translate(-200%)
@@ -288,4 +387,27 @@ export default {
     }
   }
 
+  @keyframes cloning-right {
+    0% {
+      left 80%
+    }
+    50% {
+      left 50%
+    }	
+    100% {
+      left 80%
+    }
+  }
+
+  @keyframes cloning-left {
+    0% {
+      left 20%
+    }
+    50% {
+      left 50%
+    }	
+    100% {
+      left 20%
+    }
+  }
 </style>
