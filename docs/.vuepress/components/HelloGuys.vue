@@ -90,17 +90,47 @@
       因為使用模糊加銳化效果，有顏色看起來會比較小顆，因為由外往內模糊的關係，
       另外模糊的部分也可能因為糊化又銳化後變色
     </div>
-    <h1>Principle 8: Cloning</h1>
+    <h1>Principle 9: Obscuration</h1>
     <div class="container">
-      <div class="circle-wrapper">
-        <div class="circle circle-left">
+      <div class="portrait-rectangle basic">
+        <div class="portrait-rectangle top">
+          <div class="blur-rectangle"></div>
         </div>
-        <div class="circle circle-right">
-        </div>
-      </div>       
+      </div>      
       <div class="theme-title">
         <h3>UX IN MOTION PRINCIPLE</h3>
-        <h1>{{ cloning.title }}</h1>
+        <h1>{{ obscuration.title }}</h1>
+        <h3>UXINMOTION.NET</h3>
+      </div>
+    </div>
+    <div>
+      難做到傻眼。
+    </div>
+    <h1>Principle 10: Parallax</h1>
+    <div class="container">
+      <div class="parallax-rectangle">
+        <div class="parallax-rectangle-top">
+        </div>
+      </div>      
+      <div class="theme-title">
+        <h3>UX IN MOTION PRINCIPLE</h3>
+        <h1>{{ parallax.title }}</h1>
+        <h3>UXINMOTION.NET</h3>
+      </div>
+    </div>
+    <h1>Principle 11: Dimensionality</h1>
+    <div class="container">     
+      <div class="theme-title">
+        <h3>UX IN MOTION PRINCIPLE</h3>
+        <h1>{{ dimensionality.title }}</h1>
+        <h3>UXINMOTION.NET</h3>
+      </div>
+    </div>
+    <h1>Principle 12: Dolly & Zoom</h1>
+    <div class="container">     
+      <div class="theme-title">
+        <h3>UX IN MOTION PRINCIPLE</h3>
+        <h1>{{ dolly.title }}</h1>
         <h3>UXINMOTION.NET</h3>
       </div>
     </div>
@@ -145,6 +175,18 @@ export default {
       },
       cloning: {
         title: "Cloning"
+      },
+      obscuration: {
+        title: "Obscuration"
+      },
+      parallax: {
+        title: "Parallax"
+      },
+      dimensionality: {
+        title: "Dimensionality"
+      },
+      dolly: {
+        title: "Dolly"
       }
     }
   },
@@ -230,6 +272,7 @@ export default {
       height 100px
       margin 0 auto
       margin-top 20px
+      background #dcdcdc
       &.parent
         background #aaaaaa
         animation parenting-parent 2s infinite
@@ -306,7 +349,73 @@ export default {
         &.circle-right
           animation cloning-right 2.5s ease-in infinite
           filter blur(10px)
-        
+      
+    .portrait-rectangle
+      width 140px
+      height 170px
+      &.basic
+        position relative
+        top 20%   
+        margin 0 auto
+        background #dcdcdc
+        z-index 1
+        .top
+          position absolute
+          z-index 3
+          top 50%
+          left 50%
+          transform translate(-50%, -50%) scale(1.5)
+          margin 0 auto
+          background rgba(#dcdcdc, 0.5) border-box
+          overflow hidden
+          animation obscuration 2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate-reverse  
+          .blur-rectangle
+            position absolute
+            top 34.5%
+            left 34%
+            z-index 2 
+            width 110%
+            height 100%
+            transform scale(0.7) translate(-50%, -50%)
+            filter blur(3px)
+            background #dcdcdc
+            animation obscuration-top 2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate-reverse
+    .parallax-rectangle
+      width 320px
+      height 180px
+      position relative
+      top 20%   
+      margin 0 auto
+      background #aaaaaa
+      animation parallax-move 1.5s cubic-bezier(0.86, 0, 0.07, 1) infinite alternate
+      .parallax-rectangle-top
+        width 80%
+        height 80%
+        position relative
+        top 10%
+        transform translateY(50%)
+        margin 0 auto
+        background #dcdcdc
+        animation parallax-move-top 1.5s cubic-bezier(0.86, 0, 0.07, 1) infinite alternate
+
+  @keyframes parallax-move {
+    from {
+      transform translateY(10%)
+    }
+    to {
+      transform translateY(-10%)
+    }
+  }
+
+  @keyframes parallax-move-top {
+    from {
+      transform translateY(30%)
+    }
+    to {
+      transform translateY(-30%)
+    }
+  }
+
   @keyframes easing {
     0% {
       transform translate(-200%)
@@ -408,6 +517,30 @@ export default {
     }	
     100% {
       left 20%
+    }
+  }
+
+  @keyframes obscuration {
+    0% {
+      left -30%
+    }
+    50% {
+      left 50%
+    }	
+    100% {
+      left 130%
+    }
+  }
+
+  @keyframes obscuration-top {
+    0% {
+      left 88%
+    }
+    50% {
+      left 34%
+    }	
+    100% {
+      left -20%
     }
   }
 </style>
