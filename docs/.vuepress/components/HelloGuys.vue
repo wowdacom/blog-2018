@@ -104,7 +104,8 @@
       </div>
     </div>
     <div>
-      難做到傻眼。
+      難做到傻眼。霧面那層要在最上層底下加上霧面，在移動的時候霧面往相反方向移動，維持在最下方物體的正上方。
+      並 overflow hidden 將沒有重疊的地方隱藏掉。
     </div>
     <h1>Principle 10: Parallax</h1>
     <div class="container">
@@ -119,21 +120,45 @@
       </div>
     </div>
     <h1>Principle 11: Dimensionality</h1>
-    <div class="container">     
+    <div class="container">
+      <div class="dimensionality-rectangle">
+        <div class="dimensionality-rotate">
+        </div>
+      </div>
       <div class="theme-title">
         <h3>UX IN MOTION PRINCIPLE</h3>
         <h1>{{ dimensionality.title }}</h1>
         <h3>UXINMOTION.NET</h3>
       </div>
     </div>
+    <div>
+      要用兩層包才有基準點可以旋轉。
+    </div>
     <h1>Principle 12: Dolly & Zoom</h1>
-    <div class="container">     
+    <div class="container">
+      <div class="dollyZoom">
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>       
       <div class="theme-title">
         <h3>UX IN MOTION PRINCIPLE</h3>
         <h1>{{ dolly.title }}</h1>
         <h3>UXINMOTION.NET</h3>
       </div>
     </div>
+    <div>
+      至少要包兩層，Room In 時將多餘的部分 over hidden 掉。
+    </div>
+    <br>
     <button @click="count.like++">{{'like: ' + count.like }}</button>
     <button @click="count.hate++">{{'hate: ' + count.hate }}</button>
   </div>
@@ -276,7 +301,7 @@ export default {
       &.parent
         background #aaaaaa
         animation parenting-parent 2s infinite
-        transform-origin: bottom 
+        transform-origin bottom 
       &.child
         background #dcdcdc
         animation parenting-child 2s infinite
@@ -289,7 +314,7 @@ export default {
       margin 0 auto
       background #dcdcdc
       animation trans-cirtangle 2s infinite
-      transform-origin: bottom
+      transform-origin bottom
 
     .value-change
       position relative
@@ -398,24 +423,55 @@ export default {
         background #dcdcdc
         animation parallax-move-top 1.5s cubic-bezier(0.86, 0, 0.07, 1) infinite alternate
 
-  @keyframes parallax-move {
-    from {
-      transform translateY(10%)
-    }
-    to {
-      transform translateY(-10%)
-    }
-  }
+    .dimensionality-rectangle
+      position absolute
+      left 50%
+      top 35%
+      transform translate(-50%, -50%)
+      margin 0 auto
+      background black
+      perspective 0
+      -webkit-perspective 150 /* Safari and Chrome */
+      .dimensionality-rotate    
+        width 230px
+        height 100px
+        background #aaaaaa
+        transform translate(-50%, -50%)
+        transform-origin top
+        -webkit-transform: rotateX(0deg); /* Safari and Chrome */
+        animation dimensionality-move 1.5s ease-in-out infinite alternate-reverse
 
-  @keyframes parallax-move-top {
-    from {
-      transform translateY(30%)
-    }
-    to {
-      transform translateY(-30%)
-    }
-  }
-
+    .dollyZoom
+      position relative
+      top 35%
+      left 50%
+      transform translate(-50%, -50%)
+      width 200px
+      height 200px
+      overflow hidden
+      ul
+        width 300px
+        height 180px
+        background transparent
+        position absolute
+        top 20%
+        left 50%
+        transform translate(-50%, -50%)
+        display grid
+        grid-template-columns repeat(3,1fr)
+        grid-auto-rows 100px
+        grid-auto-columns 100px
+        grid-gap 3px
+        transform-origin -34% -34%
+        margin 0 auto
+        padding 0
+        animation:zoom 1s ease-in-out infinite alternate;  
+        li
+          margin 0
+          background #dcdcdc
+          border-radius 0
+          list-style-type none
+  
   @keyframes easing {
     0% {
       transform translate(-200%)
@@ -543,4 +599,35 @@ export default {
       left -20%
     }
   }
+
+  @keyframes parallax-move {
+    from {
+      transform translateY(10%)
+    }
+    to {
+      transform translateY(-10%)
+    }
+  }
+
+  @keyframes parallax-move-top {
+    from {
+      transform translateY(30%)
+    }
+    to {
+      transform translateY(-30%)
+    }
+  }
+
+  @keyframes dimensionality-move {
+    100%{
+      -webkit-transform: rotateX(71deg); /* Safari and Chrome */
+    }
+  }
+  
+  @keyframes zoom {
+    100%{
+      transform scale(0.4)
+    }
+  }
+
 </style>
