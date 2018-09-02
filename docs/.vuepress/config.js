@@ -1,7 +1,7 @@
 module.exports = {
   // 啟用一個自定義的主題
   theme: 'yubisaki',
-  title: 'JimPress',
+  title: '吉姆的 Medium',
   description: 'vuepress theme Yubisaki',
   head: [
       ['link', { rel: 'icon', href: `/favicon.ico` }]

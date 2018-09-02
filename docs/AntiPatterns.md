@@ -1,7 +1,7 @@
 ---
-title: '測試反模式 : 沒有單元測試的整合測試'
+title: '【Vue a bit 讀書會】測試反模式 : 沒有單元測試的整合測試'
 date: 2018-05-01 12:29:00
-description: "單元測試與整合測試都進行才是硬道理"
+description: "談談測試的完整性與正確性"
 meta:
   - name: Anti-patterns
     content: 
